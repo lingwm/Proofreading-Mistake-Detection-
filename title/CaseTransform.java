@@ -1,5 +1,10 @@
 package title;
 
+import edu.stanford.nlp.simple.Document;
+import edu.stanford.nlp.simple.Sentence;
+import edu.stanford.nlp.simple.Token;
+
+
 /**
  * Created by tsmen on 11/30/2017.
  */
@@ -15,6 +20,24 @@ public class CaseTransform {
             "when, whenever, where, wherever, while";
 
 
+    public String transfor(String s){
+        String result="";
+        Document doc = new Document(s);
+        for (Sentence sent : doc.sentences()){
+            int i=1;
+            for (Token token: sent.tokens()){
+                String word=token.word();
+                if (!words.contains(word)||i==1||i==sent.length()){
+                    word=word.toUpperCase();
+                }
+                result=result+word+" ";
+                i++;
+            }
+        }
+        return result;
+    }
+
+    /*
     public String transfor(String title){
         //transform the whole title to uppercase
         String newtitle=title.toUpperCase();
@@ -42,4 +65,5 @@ public class CaseTransform {
 
         return newtitle;
     }
+    */
 }
