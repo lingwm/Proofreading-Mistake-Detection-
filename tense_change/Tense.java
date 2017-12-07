@@ -45,8 +45,8 @@ public class Tense {
                 String pos=token.posTag();
                 String change;
                 if (pos.equals("VBD")){
-                    String highlight="~"+word+"$";
-                    edit.replaceAll(word,highlight);
+                    String highlight="~"+word+"\\$";
+                    edit=edit.replaceAll(word,highlight);
                     tr.advice=tr.advice+"recommend: "+word+"---->"+token.lemma()+"\n";
                 }
             }
