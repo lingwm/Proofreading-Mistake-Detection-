@@ -18,6 +18,7 @@ import java.util.Properties;
  */
 public class Tense {
 
+    /*
     public void tenseTran(String text){
         Properties props= new Properties();
         props.setProperty("annotators","tokenize, ssplit, pos");
@@ -34,7 +35,29 @@ public class Tense {
             }
         }
     }
+    */
 
+    public String simple(String s){
+        String edit=s;
+        String advice="";
+        Document doc = new Document(s);
+        for (Sentence sent : doc.sentences()) {
+            for (Token token: sent.tokens()){
+                String word=token.word();
+                String pos=token.posTag();
+                String change;
+                if (pos.equals("VBD")){
+                    String highlight="~"+word+"\\$";
+                    edit=edit.replaceAll(word,highlight);
+                    advice=advice+"recommend: "+word+"---->"+token.lemma()+"\n";
+                }
+            }
+        }
+        //tr.content=edit;
+        return edit+"\n"+"SPLIT_SYMBOL"+advice;
+    }
+
+/*
     public TenseResult simple(String s){
         TenseResult tr=new TenseResult();
         String edit=s;
@@ -53,5 +76,5 @@ public class Tense {
         }
         tr.content=edit;
         return tr;
-    }
+    }*/
 }
